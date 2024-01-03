@@ -208,6 +208,15 @@ paths:
           description: Invalid company or invalid contact
 components:
   schemas:
+    Error:
+      type: object
+      properties:
+        message:
+          type: string
+        type:
+          type: string
+        code:
+          type: integer
     Address:
       type: object
       properties:
@@ -250,7 +259,7 @@ components:
           type: string
         firstName:
           type: string
-        isFreelance:
+        freelance:
           type: boolean
         number:
           type: string
@@ -263,4 +272,4 @@ components:
         - address
         - lastName
         - firstName
-        - isFreelance
+        - freelance
