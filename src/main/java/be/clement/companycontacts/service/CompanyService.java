@@ -40,7 +40,7 @@ public class CompanyService {
 
         companyDto.getContacts().add(contact);
 
-        repository.save(
+        repository.saveAndFlush(
                 companyDto
         );
     }

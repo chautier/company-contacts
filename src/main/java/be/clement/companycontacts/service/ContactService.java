@@ -22,6 +22,7 @@ public class ContactService {
     }
 
     public be.clement.model.Contact createContact(Contact contact) {
+        //  Check if number is filled if contact is a freelance
         if (contact.getFreelance() && StringUtils.isEmpty(contact.getNumber())) {
             throw new ContactRequiredNumberForFreelanceException();
         }
@@ -34,8 +35,8 @@ public class ContactService {
     }
 
     public void deleteContact(Long id) {
+        //  Check if contact exists
         Optional<ContactDto> contactDto = repository.findById(id);
-
         if (contactDto.isEmpty()) {
             throw new ContactNotFoundException(id);
         }
@@ -50,8 +51,8 @@ public class ContactService {
     }
 
     public Contact updateContact(Long id, Contact contact) {
+        //  Check if contact exists
         Optional<ContactDto> contactDto = repository.findById(id);
-
         if (contactDto.isEmpty()) {
             throw new ContactNotFoundException(id);
         }
