@@ -64,4 +64,9 @@ public class ContactService {
                 )
         );
     }
+
+    public ContactDto find(Long id) {
+        return repository.findById(id)
+                .orElseThrow(() -> new ContactNotFoundException(id));
+    }
 }

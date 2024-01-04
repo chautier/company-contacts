@@ -9,36 +9,46 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
+import jakarta.persistence.PreRemove;
 import jakarta.persistence.Table;
 
-import java.util.List;
+import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Table(name = "contact")
-public class ContactDto {
+public class ContactDto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "addressId")
+    @JoinColumn(name = "address_id")
     private AddressDto address;
 
-    @Column(name = "lastName", nullable = false)
+    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "firstName", nullable = false)
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
     @Column(name = "freelance", nullable = false)
     private Boolean freelance;
 
     @Column(name = "number")
-    private String number;
+    private String number;  //  Required if it's a freelance
 
-    @ManyToMany
-    private List<CompanyDto> companies;
+    @ManyToMany(mappedBy = "contacts")
+    private Set<CompanyDto> companies = new HashSet<>();
+
+    @PreRemove
+    private void removeCompanies() {
+        for (CompanyDto company : companies) {
+            company.getContacts().remove(this);
+        }
+    }
 
     public Long getId() {
         return id;
@@ -88,11 +98,11 @@ public class ContactDto {
         this.number = number;
     }
 
-    public List<CompanyDto> getCompanies() {
+    public Set<CompanyDto> getCompanies() {
         return companies;
     }
 
-    public void setCompanies(List<CompanyDto> companies) {
+    public void setCompanies(Set<CompanyDto> companies) {
         this.companies = companies;
     }
 }

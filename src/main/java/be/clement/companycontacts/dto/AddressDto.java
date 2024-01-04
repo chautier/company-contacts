@@ -7,9 +7,11 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
+import java.io.Serializable;
+
 @Entity
 @Table(name = "address")
-public class AddressDto {
+public class AddressDto implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

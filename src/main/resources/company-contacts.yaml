@@ -239,12 +239,18 @@ components:
       type: object
       properties:
         id:
+          readOnly: true
           type: integer
         address:
           $ref: '#/components/schemas/Address'
         number:
           type: string
           pattern: '^\d{10}$'
+        contacts:
+          readOnly: true
+          type: array
+          items:
+            $ref: '#/components/schemas/Contact'
       required:
         - address
         - number
@@ -252,6 +258,7 @@ components:
       type: object
       properties:
         id:
+          readOnly: true
           type: integer
         address:
           $ref: '#/components/schemas/Address'
@@ -264,10 +271,6 @@ components:
         number:
           type: string
           pattern: '^\d{10}$'
-        companies:
-          type: array
-          items:
-            $ref: '#/components/schemas/Company'
       required:
         - address
         - lastName

@@ -8,6 +8,7 @@ import java.util.Optional;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<CompanyDto, Long> {
+
     Optional<CompanyDto> findByNumber(String number);
 
 }
